@@ -1,0 +1,46 @@
+1. Linear regression sklearn.linear_model.LinrearRegression()
+    * y = α + βx
+        * can have as many x values as you want, with the model giving you intercept as α and slope for each x value as β
+2. Logistic Regression sklearn.linear_model.LogisiticRegression()
+    * logit(p) = α + βx, logit(p) = ln(p/(1-p))
+        * can have as many x values as you want, with the model giving you intercept as α and slope for each x value as β
+        * uses the x values and the associated slopes as a feed in to the logit function, which will return 1 or 0
+3. K-Means Clustering sklearn.clustering.KMeans() - Unsupervised
+    * J(V) = ∑∑(||xi-vj||)2
+        * minimze squared distance from every data point to a mean point
+        * you specifiy how many mean points there are, and each iteration the algorithm will calculate the distance, and then move the mean point to a location where the mean distance between it and its associated points is smallest
+4. Random Forest sklearn.ensemble.RandomForestClassifier or .RandomForestRegressor
+    * No real formula, just uses decision trees to create classifiers
+    * Uses two major concepts to work (Bagging):
+        * Bootstrapping - select data with replacement from our original sample of data and train many trees on this bootstrapped data (designed to prevent overfitting)
+        * Aggregration - using the weights from all the trees, we find the average weights for our features and form a tree based on these average weights
+    * Bagging is used to update weights and the "random" part of the forest changes the model's features to incorporate all the features in different combinations. It then creates a master tree that uses each bagged tree to adjust the weights of the master tree
+5. Support Vector Machines (SVM) sklearn.svm
+    * Draws lines called support vectors that separate classified points
+        * Regularization parameter (c) used to tell the svm how much you want to avoid misclassifying. Low c May overfit.
+        * Gamma tells Support Vector which points should get highest weight in drawing it. High Gamma will only use points close to the SV to determine it's shape/location
+6. Neural Network sklearn.neural_network.MLPClassifier or MLPRegressor
+    * Feed in a matrix (x values), pass them through many equations with weights (slopes) and biases (intercept) and then arrive at solution. These equation points are called nodes, and a column of nodes is called a layer
+        * A row of data fed into NN
+        * Layers can be thought of as columns of nodes. Each data point passes through each node in a layer
+        * Nodes contain a y = w*x+b. X values fed through this, and then fed through activation function afterwards to normalize them
+        * Output of one layer can be fed through another layer that essentially does the same thing.
+        * After all the layers are fed through, the final nodes will output a value that will be scored against the actual value
+        * The difference between the NN output and the actual value is called the loss, and this loss is back propagated through the network to adjust the weights and biases of each step.
+        * This process happens as many times as you specify, with each whole passthrough called a step.
+7. K-nearest Neighbors sklearn.neighbors.KNeighborsClassifier or KNeighbors.Regressor
+    * d(x,x′)=√((x1−x′1)2+(x2−x′2)2+…+(xn−x′n)2)
+        * For each point, calculate the squared distance to the k nearest points in the dataset
+    * P(y=j|X=x)=1/K∑I(yi = j)
+        * sum the distances and whichever group of points has the smallest distance to the new data point, will be the grouping for that specific data point
+    * Very fast to train, but slow to implement because it calculates the distance to every point in the data set for every new point in the data set.
+
+For all of these, you would simply feed in x and y using the fit method, and then predict using the predict method.
+Example:
+rf = sklearn.ensemble.randomforestclassifier()
+rf.fit(x_train_y_train)
+#test accuracy)
+prediction = rf.predict(x_test)
+accuracy_score(prediction,y_test)
+#if good, implement model
+rf.predict(new_x_data)

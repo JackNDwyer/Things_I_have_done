@@ -1,0 +1,40 @@
+I'm writing this reference as a guide for myself and for any interested parties.β
+There are two kinds of forecasting. Regression, which takes in data for a given time, and spits out a prediction for the same time, and time series, which takes a series of say revenue, and predicts revenue into the future given no outside data. This will focus on the latter, because it is a lot more technical, and certainly a lot more useful.
+
+Two major modeling types:
+ARIMA - used for predicting the series itself:
+-AR or autoregressive: When you regress a series on a past version of itself using lags. Tested using PACF (PACF tests the autocorrelation between two points while factoring out auto correlation of all the points in between the two points, so you are getting a pure relationship between just two points )
+
+-I or integrated: If the series isn't stationary, you can difference values to ideally predict better since the differences should at least be stationary. Tested using (Augmented if p>1) Dickey Fuller Test
+-MA or Moving Average: Essentially a linear combination of past error terms. Typically the latest lag will be sufficient in predicting (MA = 1), but sometimes it's not. Tested using ACF (ACF shows a linear combination of lagged points that compose your newest point), should be looked at after adjusting AR term alone.
+Score these using AIC, also need to check ACF and PACF of residuals to ensure no underlying patterns exist there.
+Use Durbin Watson value to detect autocorrelation. A value close to 0 or close to 4 indicates strong autocorrelation, with a value of 2 being a good sign that we don't have any.
+Ljung-Box Q-Statistic on the residuals can be used to get the ACF and PACF p-values. Typically we want to fail to reject (p > .05) as this tells us there is no auto-correlation.
+
+Using math:
+Let B be a backshift term, where B*Yt = Yt-1
+And Yt = et
+AR (1): yt = φ1*B*yt
+I (1): yt = (1−B)Yt
+MA (1): yt = (1 - B*θ1)et
+ARIMA (1,1,1) = (1-φ1B)(1-B)Yt = (1-θ1B)et
+TIPS:
+If θ ~ 1, then it cancels the differencing term
+If φ ~ 1, then it's basically another differencing terms
+If θ = φ, then they cancel out
+If you have a polynomial difference, if any of the AR or MA root coefficients are similar to a root on the other side (MA or AR respectively), they may cancel out. i.e. (1-.2B)(1-.5B)Yt = (1-.2B)et there would be a cancellation
+If your AR root coefficients add up to roughly 1, you'd have a unit root, and you should reduce order and difference instead. If the same is true of your MA coefficients, they would cancel out an order of differencing.
+
+
+(G)ARCH - used for predicting variance, very useful for things like stock market investing:
+-There isn't always a correlation between a value and it's lag, but sometimes there is a correlation between the square of a value and the square of its lag.
+so rt2 = β * rt - 12 where rt = returns (Xt / Xt-1). The formula for returns can also be written as rt = μ + at where μ = mean and at =  error
+at is also definable as at = σ*ε
+ARCH:
+σ2t = α0 + α1*yt-12 + α2*yt-22 + ...
+so rt = μ + (√α0 + α1*yt-12 + α2*yt-22 + ...)* ε
+GARCH:
+σ2t = α0 + α1*yt-12 + β1*σ2t-1  + α2*yt-22 + β2*σ2t-2 ...
+Most useful with daily data (~1000-2000 observations), and for predicting relatively short time windows (< 20 days)
+
+ARIMA(p, d, q) × (P, D, Q)S,with p = non-seasonal AR order, d = non-seasonal differencing, q = non-seasonal MA order, P = seasonal AR order, D = seasonal differencing, Q = seasonal MA order, and S = time span of repeating seasonal pattern.

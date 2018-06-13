@@ -1,0 +1,17 @@
+[2018-05-07 16:36:02,076] {models.py:167} INFO - Filling up the DagBag from /home/ubuntu/airflow/dags/test_dag.py
+[2018-05-07 16:36:02,286] {base_task_runner.py:112} INFO - Running: ['bash', '-c', u'airflow run redshift-demo load 2017-06-01T00:00:00 --job_id 6 --raw -sd DAGS_FOLDER/test_dag.py']
+[2018-05-07 16:36:02,479] {base_task_runner.py:95} INFO - Subtask: [2018-05-07 16:36:02,479] {__init__.py:57} INFO - Using executor SequentialExecutor
+[2018-05-07 16:36:02,567] {base_task_runner.py:95} INFO - Subtask: [2018-05-07 16:36:02,567] {driver.py:120} INFO - Generating grammar tables from /usr/lib/python2.7/lib2to3/Grammar.txt
+[2018-05-07 16:36:02,588] {base_task_runner.py:95} INFO - Subtask: [2018-05-07 16:36:02,588] {driver.py:120} INFO - Generating grammar tables from /usr/lib/python2.7/lib2to3/PatternGrammar.txt
+[2018-05-07 16:36:02,686] {base_task_runner.py:95} INFO - Subtask: /usr/local/lib/python2.7/dist-packages/psycopg2/__init__.py:144: UserWarning: The psycopg2 wheel package will be renamed from release 2.8; in order to keep installing from binary please use "pip install psycopg2-binary" instead. For details see: <http://initd.org/psycopg/docs/install.html#binary-install-from-pypi>.
+[2018-05-07 16:36:02,686] {base_task_runner.py:95} INFO - Subtask:   """)
+[2018-05-07 16:36:02,763] {base_task_runner.py:95} INFO - Subtask: [2018-05-07 16:36:02,763] {models.py:167} INFO - Filling up the DagBag from /home/ubuntu/airflow/dags/test_dag.py
+[2018-05-07 16:36:02,963] {base_task_runner.py:95} INFO - Subtask: [2018-05-07 16:36:02,962] {models.py:1126} INFO - Dependencies all met for <TaskInstance: redshift-demo.load 2017-06-01 00:00:00 [queued]>
+[2018-05-07 16:36:02,965] {base_task_runner.py:95} INFO - Subtask: [2018-05-07 16:36:02,965] {models.py:1126} INFO - Dependencies all met for <TaskInstance: redshift-demo.load 2017-06-01 00:00:00 [queued]>
+[2018-05-07 16:36:02,965] {base_task_runner.py:95} INFO - Subtask: [2018-05-07 16:36:02,965] {models.py:1318} INFO - 
+[2018-05-07 16:36:02,965] {base_task_runner.py:95} INFO - Subtask: --------------------------------------------------------------------------------
+[2018-05-07 16:36:02,965] {base_task_runner.py:95} INFO - Subtask: Starting attempt 1 of 3
+[2018-05-07 16:36:02,965] {base_task_runner.py:95} INFO - Subtask: --------------------------------------------------------------------------------
+[2018-05-07 16:36:02,965] {base_task_runner.py:95} INFO - Subtask: 
+[2018-05-07 16:36:02,974] {base_task_runner.py:95} INFO - Subtask: [2018-05-07 16:36:02,973] {models.py:1342} INFO - Executing <Task(S3ToRedshiftOperator): load> on 2017-06-01 00:00:00
+[2018-05-07 16:36:02,982] {base_task_runner.py:95} INFO - Subtask: [2018-05-07 16:36:02,982] {base_hook.py:67} INFO - Using connection to: blastam.ck7lkwocu21r.us-west-2.redshift.amazonaws.com
